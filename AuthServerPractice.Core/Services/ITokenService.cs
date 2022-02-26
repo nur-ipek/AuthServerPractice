@@ -12,6 +12,6 @@ namespace AuthServerPractice.Core.Services
     {
         TokenDto CreateToken(UserApp userApp);
 
-        ClientTokenDto CreateTokenByClient(ClientTokenDto client)
+        ClientTokenDto CreateTokenByClient(ClientTokenDto client);
     }
 }

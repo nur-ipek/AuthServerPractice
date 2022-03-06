@@ -13,8 +13,8 @@ namespace AuthServerPractice.Core.Repositories
         Task<TEntity> GetByIdAsyns(int id);
         Task<TEntity> AddAsync(TEntity entity);
         void Remove(TEntity entity);
-        void Update(TEntity entity);
-        Task<IQueryable<TEntity>> Where(Expression<Func<TEntity, bool>> predi);
+        TEntity Update(TEntity entity);
+        IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> predi);
 
     }
 }

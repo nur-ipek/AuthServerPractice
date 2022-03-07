@@ -25,7 +25,7 @@ namespace AuthServerPractice.Data.Repositories
             return entity;
            //Burada SaveChange veya Commit metodunu çağırmıyorum. Onu yapacağımız yer Service Katmanı.
            //Bu işlemle memory'ye bir veri ekledim fakat db'ye yansımadı.
-           //Burada yapacağım her işlem memory'de hazır olarak bekleyecek, ne zamanki Service katmanında bu repo DI olarak geçtikten sonra unitOfWork ile Commit metodunu çağırdımızda bd'ye kayıt edilecek.
+           //Burada yapacağım her işlem memory'de hazır olarak bekleyecek, ne zamanki Service katmanında bu repo DI olarak geçtikten sonra unitOfWork ile Commit metodunu çağırdımızda db'ye kayıt edilecek.
         }
 
         //Burada IEnumerable dönmemizin sebebi bu sonuç döndükten sonra herhangi bir sorgulama işlemi yapmayacağız.

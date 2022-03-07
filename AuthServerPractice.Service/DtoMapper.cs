@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AuthServerPractice.Service
 {
-    class DtoMapper: Profile
+    public class DtoMapper: Profile
     {
         public DtoMapper()
         {

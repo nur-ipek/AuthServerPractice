@@ -16,7 +16,7 @@ namespace SharedLibrary.DTOs
         public int StatusCode { get; private set; }
         public ErrorDto ErrorDto { get; private set; }
 
-        //Client lara açmayacağımız property.. !!11! Sebebi: proram içerisinde isteklerin başarılı olup olmayacağını StatusCode veya Data üzerinden takip etmek yerine bu prop'tan edelim:
+        //Clientlara açmayacağımız property.. !!11! Sebebi: program içerisinde isteklerin başarılı olup olmayacağını StatusCode veya Data üzerinden takip etmek yerine bu prop'tan edelim:
         //JsonIgnore: 
         [JsonIgnore]
         public bool IsSuccessful { get; private set; }

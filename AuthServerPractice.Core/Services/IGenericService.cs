@@ -13,8 +13,8 @@ namespace AuthServerPractice.Core.Services
         Task<Response<IEnumerable<TDto>>> GetAllAsync();
         Task<Response<TDto>> GetByIdAsyns(int id);
         Task<Response<TDto>> AddAsync(TDto entity);
-        Task<Response<NoDataDto>> Remove(TDto entity);
-        Task<Response<NoDataDto>> Update(TDto entity);
+        Task<Response<NoDataDto>> Remove(int id);
+        Task<Response<NoDataDto>> Update(TDto entity,int id);
         Task<Response<IEnumerable<TDto>>> Where(Expression<Func<TEntity, bool>> predi);
     }
 }

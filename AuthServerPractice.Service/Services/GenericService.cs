@@ -2,6 +2,7 @@
 using AuthServerPractice.Core.Services;
 using AuthServerPractice.Core.UnitOfWork;
 using AuthServerPractice.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 using SharedLibrary.DTOs;
 using System;
 using System.Collections.Generic;
@@ -61,28 +62,61 @@ namespace AuthServerPractice.Service.Services
         {
             var entity = await _genericRepository.GetByIdAsyns(id);
 
+            //Durumu kontrol eden ufak bir business kodu. !!1!
+            //Bu null kontrol etme durumunu API'deki Cotroller sınıfında yapmıyoruz.
+
+            if(entity == null)
+            {
+                return Response<TDto>.Fail("Id not found", true, 404);
+            }
+
             var dto = ObjectMapper.Mapper.Map<TDto>(entity);
 
             return Response<TDto>.Success(dto, 200);
         }
 
-        public async Task<Response<NoDataDto>> Remove(TDto entity)
+        public async Task<Response<NoDataDto>> Remove(int id)
         {
-            var deleteEntity = ObjectMapper.Mapper.Map<TEntity>(entity);
+            //Silecek veri yoksa hata nesajı döndürelim
+            var isExistEntity = await _genericRepository.GetByIdAsyns(id);
 
-             _genericRepository.Remove(deleteEntity);
+            if(isExistEntity == null)
+            {
+                return Response<NoDataDto>.Fail("Id not found", true, 404);
+            }
+
+             _genericRepository.Remove(isExistEntity);
+
+            await _unitOfWork.CommitAsync();
 
             return Response<NoDataDto>.Success(200);
         }
 
-        public Task<Response<NoDataDto>> Update(TDto entity)
+        public async Task<Response<NoDataDto>> Update(TDto entity,int id)
         {
-            throw new NotImplementedException();
+            var isExistEntity = await _genericRepository.GetByIdAsyns(id);
+
+            if(isExistEntity == null)
+            {
+                return Response<NoDataDto>.Fail("Id not found", true, 404);
+            }
+            _genericRepository.Update(isExistEntity);
+
+            await _unitOfWork.CommitAsync();
+            //204 durum kodu no cotent => reponse body boş
+            return Response<NoDataDto>.Success(200);
+
+
         }
 
-        public Task<Response<IEnumerable<TDto>>> Where(Expression<Func<TEntity, bool>> predi)
+        public async Task<Response<IEnumerable<TDto>>> Where(Expression<Func<TEntity, bool>> predi)
         {
-            throw new NotImplementedException();
+           var list =  _genericRepository.Where(predi);
+
+           var dtoList = ObjectMapper.Mapper.Map<IEnumerable<TDto>>(await list.ToListAsync());
+
+            return Response<IEnumerable<TDto>>.Success(dtoList, 200);
+
         }
     }
 }

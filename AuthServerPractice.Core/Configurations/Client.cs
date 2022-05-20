@@ -12,6 +12,7 @@ namespace AuthServerPractice.Core.Configurations
         public string Secret { get; set; }
 
         //PAYLOAD bölümünde görünecek..
+        //Üyelik sistemi olmayan hangi apilere erişebilir: 
         public List<String> Audiences { get; set; }
     }
 }
